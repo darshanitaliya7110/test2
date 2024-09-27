@@ -11,6 +11,7 @@ import {
     addTagNodes,
     getMentionsPlugin
 } from "prosemirror-mentions";
+import "./ProseMirror.css"
 
 // Create schema
 const schema = new Schema({
@@ -18,9 +19,11 @@ const schema = new Schema({
     marks: basicSchema.spec.marks
 });
 
-const getMentionSuggestionsHTML = items =>
+const getMentionSuggestionsHTML = (items, activeIndex) =>
     '<div class="suggestion-item-list">' +
-    items.map(i => '<div class="suggestion-item">' + i.name + "</div>").join("") +
+    items.map((item, index) =>
+        `<div class="suggestion-item ${index === activeIndex ? 'active' : ''}">${item.name}</div>`
+    ).join("") +
     "</div>";
 
 const getTagSuggestionsHTML = items =>
